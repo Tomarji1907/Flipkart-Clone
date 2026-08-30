@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Flipkart inspired responsive e-commerce website">
+
+    <title>FlipKart Clone - Online Shopping</title>
+
+    <link rel="icon"
+        type="image/png"
+        href="img/f.webp">
+
+    <link rel="stylesheet"
+        href="css/style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <!-- ================= DESKTOP BRAND ROW ================= -->
+
+    <div class="brand-row">
+
+        <button
+            id="homeBox"
+            class="brand-box flipkart-brand"
+            type="button">
+
+            <img
+                src="img/f.png"
+                alt="Flipkart"
+                class="brand-f-logo">
+
+            <strong>Flipkart</strong>
+
+        </button>
+
+
+        <button
+            class="brand-box grocery-brand"
+            type="button"
+            data-category="grocery">
+
+            <span class="brand-emoji">🛍️</span>
+
+            <strong>Grocery</strong>
+
+        </button>
+
+
+        <button
+            class="brand-box travel-brand"
+            type="button"
+            data-category="travel">
+
+            <span class="brand-emoji">✈️</span>
+
+            <strong>Travel</strong>
+
+        </button>
+
+
+        <button
+            id="locationBtn"
+            class="desktop-location"
+            type="button">
+
+            <span class="location-pin">●</span>
+
+            <span id="currentPincode">
+                Select delivery location
+            </span>
+
+            <span class="location-arrow">
+                ›
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- ================= DESKTOP SEARCH ================= -->
+
+    <div class="header-main">
+
+        <div class="search-container">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                id="searchInput"
+                class="search-input"
+                type="text"
+                placeholder="Search for Products, Brands and More"
+                autocomplete="off">
+
+            <button
+                id="clearSearch"
+                class="clear-search"
+                type="button">
+                ×
+            </button>
+
+        </div>
+
+
+        <nav class="desktop-nav">
+
+            <a
+                href="links/login.html"
+                class="nav-item">
+
+                <img
+                    src="img/profile.svg"
+                    alt="Login">
+
+                <span>Login</span>
+
+                <span class="nav-arrow">
+                    ⌄
+                </span>
+
+            </a>
+
+
+            <a
+                href="links/more.html"
+                class="nav-item">
+
+                <span>More</span>
+
+                <span class="nav-arrow">
+                    ⌄
+                </span>
+
+            </a>
+
+
+            <a
+                href="links/cart.html"
+                class="nav-item cart-item">
+
+                <img
+                    src="img/cart.svg"
+                    alt="Cart">
+
+                <span>Cart</span>
+
+                <b
+                    id="cartCount"
+                    class="cart-count">
+                    0
+                </b>
+
+            </a>
+
+        </nav>
+
+    </div>
+
+
+    <!-- ================= DESKTOP CATEGORIES ================= -->
+
+    <div class="desktop-categories">
+
+        <button
+            class="top-category active"
+            data-category="all">
+
+            <img src="img/a.svg" alt="">
+            <b>For You</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="fashion">
+
+            <img src="img/b.svg" alt="">
+            <b>Fashion</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="mobiles">
+
+            <img src="img/c.svg" alt="">
+            <b>Mobiles</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="electronics">
+
+            <img src="img/d.svg" alt="">
+            <b>Electronics</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="beauty">
+
+            <img src="img/e.svg" alt="">
+            <b>Beauty</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="home">
+
+            <img src="img/f.svg" alt="">
+            <b>Home</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="appliances">
+
+            <img src="img/g.svg" alt="">
+            <b>Appliances</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="toys">
+
+            <img src="img/h.svg" alt="">
+            <b>Toys, Bags</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="grocery">
+
+            <img src="img/i.svg" alt="">
+            <b>Food & Household</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="sports">
+
+            <img src="img/j.svg" alt="">
+            <b>Sports</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="furniture">
+
+            <img src="img/k.svg" alt="">
+            <b>Furniture</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="books">
+
+            <img src="img/l.svg" alt="">
+            <b>Books</b>
+
+        </button>
+
+
+        <button
+            class="top-category"
+            data-category="twowheeler">
+
+            <img src="img/n.svg" alt="">
+            <b>2 Wheelers</b>
+
+        </button>
+
+    </div>
+
+
+    <!-- ================= MOBILE HEADER ================= -->
+
+    <div class="mobile-header">
+
+        <div class="mobile-top">
+
+            <div class="mobile-brands">
+
+                <button
+                    id="mobileFlipBtn"
+                    class="mobile-brand mobile-flip"
+                    type="button">
+
+                    <span class="mobile-brand-f">
+
+                        <img
+                            src="img/f.png"
+                            alt="Flipkart">
+
+                    </span>
+
+                    <b>Flipkart</b>
+
+                </button>
+
+
+                <button
+                    class="mobile-brand mobile-grocery"
+                    data-category="grocery"
+                    type="button">
+
+                    <span>🛍️</span>
+
+                    <b>Grocery</b>
+
+                </button>
+
+
+                <button
+                    class="mobile-brand mobile-travel"
+                    data-category="travel"
+                    type="button">
+
+                    <span>✈️</span>
+
+                    <b>Travel</b>
+
+                </button>
+
+            </div>
+
+
+            <button
+                id="mobileLocation"
+                class="mobile-location"
+                type="button">
+
+                <span class="mobile-location-icon">
+                    📍
+                </span>
+
+                <span class="mobile-location-text">
+
+                    <small>
+                        Deliver to
+                    </small>
+
+                    <strong id="mobilePincode">
+                        Select Location
+                    </strong>
+
+                </span>
+
+                <span>›</span>
+
+            </button>
+
+        </div>
+
+
+        <div class="mobile-search">
+
+            <span>🔍</span>
+
+            <input
+                id="mobileSearchInput"
+                type="text"
+                placeholder="Search for products & more"
+                autocomplete="off">
+
+            <button
+                id="mobileSearchBtn"
+                type="button">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MOBILE CATEGORIES
+===================================================== -->
+
+<div class="mobile-categories">
+
+    <button
+        class="mobile-category active"
+        data-category="all">
+
+        <img src="img/a.svg" alt="">
+        <b>For You</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="fashion">
+
+        <img src="img/b.svg" alt="">
+        <b>Fashion</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="mobiles">
+
+        <img src="img/c.svg" alt="">
+        <b>Mobiles</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="electronics">
+
+        <img src="img/d.svg" alt="">
+        <b>Electronics</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="beauty">
+
+        <img src="img/e.svg" alt="">
+        <b>Beauty</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="home">
+
+        <img src="img/f.svg" alt="">
+        <b>Home</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="appliances">
+
+        <img src="img/g.svg" alt="">
+        <b>Appliances</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="toys">
+
+        <img src="img/h.svg" alt="">
+        <b>Toys</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="grocery">
+
+        <img src="img/i.svg" alt="">
+        <b>Food</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="sports">
+
+        <img src="img/j.svg" alt="">
+        <b>Sports</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="furniture">
+
+        <img src="img/k.svg" alt="">
+        <b>Furniture</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="books">
+
+        <img src="img/l.svg" alt="">
+        <b>Books</b>
+
+    </button>
+
+
+    <button
+        class="mobile-category"
+        data-category="twowheeler">
+
+        <img src="img/n.svg" alt="">
+        <b>2 Wheelers</b>
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<main id="homePage">
+
+    <section class="delivery-card">
+
+        <div class="delivery-info">
+
+            <span class="big-location">
+                📍
+            </span>
+
+            <div>
+
+                <small>
+                    Deliver to
+                </small>
+
+                <strong id="deliveryLocation">
+                    Select your location
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="changeLocationBtn"
+            type="button">
+            Change
+        </button>
+
+    </section>
+
+
+    <!-- ================= MAIN SLIDER ================= -->
+
+    <section class="banner-section">
+
+        <div
+            id="bannerSlider"
+            class="banner-slider">
+
+            <div class="banner-slide">
+
+                <img
+                    src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?auto=format&fit=crop&w=1600&q=85"
+                    alt="Electronics sale">
+
+                <div class="banner-overlay"></div>
+
+                <div class="banner-text">
+
+                    <span>
+                        BIG SAVINGS
+                    </span>
+
+                    <h1>
+                        Electronics
+                        <br>
+                        Mega Deals
+                    </h1>
+
+                    <p>
+                        Up to 60% Off
+                    </p>
+
+                    <button
+                        class="banner-shop"
+                        data-category="electronics">
+                        Shop Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="banner-slide">
+
+                <img
+                    src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1600&q=85"
+                    alt="Fashion sale">
+
+                <div class="banner-overlay"></div>
+
+                <div class="banner-text">
+
+                    <span>
+                        TRENDING NOW
+                    </span>
+
+                    <h1>
+                        Fashion
+                        <br>
+                        Collection
+                    </h1>
+
+                    <p>
+                        Starting ₹399
+                    </p>
+
+                    <button
+                        class="banner-shop"
+                        data-category="fashion">
+                        Explore
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="banner-slide">
+
+                <img
+                    src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=85"
+                    alt="Grocery sale">
+
+                <div class="banner-overlay"></div>
+
+                <div class="banner-text">
+
+                    <span>
+                        DAILY ESSENTIALS
+                    </span>
+
+                    <h1>
+                        Grocery
+                        <br>
+                        Super Deals
+                    </h1>
+
+                    <p>
+                        Save More Every Day
+                    </p>
+
+                    <button
+                        class="banner-shop"
+                        data-category="grocery">
+                        Shop Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="banner-slide">
+
+                <img
+                    src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=85"
+                    alt="Shopping offer">
+
+                <div class="banner-overlay"></div>
+
+                <div class="banner-text">
+
+                    <span>
+                        LIMITED TIME OFFER
+                    </span>
+
+                    <h1>
+                        Smart Shopping
+                        <br>
+                        Better Prices
+                    </h1>
+
+                    <p>
+                        Great deals every day
+                    </p>
+
+                    <button
+                        class="banner-shop"
+                        data-category="all">
+                        View Deals
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="prevBanner"
+            class="slider-arrow prev"
+            type="button">
+            ‹
+        </button>
+
+
+        <button
+            id="nextBanner"
+            class="slider-arrow next"
+            type="button">
+            ›
+        </button>
+
+
+        <div
+            id="bannerDots"
+            class="banner-dots">
+
+            <button
+                class="banner-dot active"
+                data-slide="0">
+            </button>
+
+            <button
+                class="banner-dot"
+                data-slide="1">
+            </button>
+
+            <button
+                class="banner-dot"
+                data-slide="2">
+            </button>
+
+            <button
+                class="banner-dot"
+                data-slide="3">
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= QUICK CATEGORY ================= -->
+
+    <section class="quick-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Shop by Category
+                </h2>
+
+                <p>
+                    Explore popular categories
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-grid">
+
+            <button
+                class="quick-card"
+                data-category="electronics">
+
+                <span>📱</span>
+                <b>Electronics</b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                data-category="fashion">
+
+                <span>👕</span>
+                <b>Fashion</b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                data-category="grocery">
+
+                <span>🥦</span>
+                <b>Grocery</b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                data-category="home">
+
+                <span>🏠</span>
+                <b>Home</b>
+
+            </button>
+
+
+            <button
+                class="quick-card"
+                data-category="twowheeler">
+
+                <span>🛵</span>
+                <b>2 Wheelers</b>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= BEST DEALS ================= -->
+
+    <section class="deals-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Best Deals
+                </h2>
+
+                <p>
+                    Deals you don't want to miss
+                </p>
+
+            </div>
+
+            <button
+                id="viewAllBtn"
+                type="button">
+                View All ›
+            </button>
+
+        </div>
+
+
+        <div
+            id="bestDealsGrid"
+            class="best-deals-grid">
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<section
+    id="productsSection"
+    class="products-section">
+
+    <div class="products-header">
+
+        <div>
+
+            <h2 id="productsTitle">
+                All Products
+            </h2>
+
+            <p id="productsSubtitle">
+                Best deals for you
+            </p>
+
+        </div>
+
+
+        <div class="sort-wrapper">
+
+            <label>
+                Sort:
+            </label>
+
+            <select id="sortProducts">
+
+                <option value="default">
+                    Relevance
+                </option>
+
+                <option value="low">
+                    Price: Low to High
+                </option>
+
+                <option value="high">
+                    Price: High to Low
+                </option>
+
+                <option value="rating">
+                    Customer Rating
+                </option>
+
+                <option value="discount">
+                    Discount
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="searchInfo"
+        class="search-info">
+    </div>
+
+
+    <div
+        id="productsGrid"
+        class="products-grid">
+    </div>
+
+
+    <div
+        id="noProducts"
+        class="no-products">
+
+        <div>📦</div>
+
+        <h3>
+            More items coming soon
+        </h3>
+
+        <p>
+            We are adding more products for you.
+        </p>
+
+        <button
+            id="showAllBtn"
+            type="button">
+            View All Products
+        </button>
+
+    </div>
+
+
+    <!-- ALWAYS AT END OF PRODUCT LIST -->
+
+    <div
+        id="productsEnd"
+        class="products-end">
+
+        <div class="products-end-icon">
+            ✨
+        </div>
+
+        <h3>
+            More items coming soon
+        </h3>
+
+        <p>
+            Stay tuned for more exciting products and deals.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="toast"
+    class="toast">
+
+    <span id="toastIcon">
+        ✓
+    </span>
+
+    <span id="toastMessage">
+        Added to cart
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     MOBILE BOTTOM NAV
+===================================================== -->
+
+<nav class="bottom-nav">
+
+    <button
+        id="mobileHomeBtn"
+        class="bottom-item active"
+        type="button">
+
+        <span>🏠</span>
+        <small>Home</small>
+
+    </button>
+
+
+    <button
+        id="mobileCategoriesBtn"
+        class="bottom-item"
+        type="button">
+
+        <span>🗂️</span>
+        <small>Categories</small>
+
+    </button>
+
+
+    <button
+        id="mobileAccountBtn"
+        class="bottom-item"
+        type="button">
+
+        <span>👤</span>
+        <small>Account</small>
+
+    </button>
+
+
+    <a
+        href="links/cart.html"
+        class="bottom-item">
+
+        <span class="bottom-cart-icon">
+
+            🛒
+
+            <b id="mobileCartCount">
+                0
+            </b>
+
+        </span>
+
+        <small>
+            Cart
+        </small>
+
+    </a>
+
+</nav>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-main">
+
+        <div class="footer-column">
+
+            <h3>
+                About
+            </h3>
+
+            <span>
+                About Us
+            </span>
+
+            <span>
+                Contact
+            </span>
+
+            <span>
+                Careers
+            </span>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Help
+            </h3>
+
+            <span>
+                Help Center
+            </span>
+
+            <span>
+                Payments
+            </span>
+
+            <span>
+                Shipping
+            </span>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Policy
+            </h3>
+
+            <span>
+                Terms
+            </span>
+
+            <span>
+                Privacy
+            </span>
+
+            <span>
+                Security
+            </span>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Follow Us
+            </h3>
+
+            <span>
+                Instagram
+            </span>
+
+            <span>
+                LinkedIn
+            </span>
+
+            <span>
+                GitHub
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 | Personal Educational Project
+        </p>
+
+        <p>
+            Not affiliated with or endorsed by Flipkart.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

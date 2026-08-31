@@ -398,7 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
             image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=85"
         },
 
-{
+        {
             id: 29,
             category: "twowheeler",
             name: "Electric Bike",
@@ -468,7 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
             reviews: 7184,
             delivery: "Free delivery",
             image: "https://plus.unsplash.com/premium_photo-1716440381772-face56f5a46b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        },
+        }
 
     ];
 
@@ -485,10 +485,80 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let slideTimer = null;
 
-    let cart =
-        JSON.parse(
-            localStorage.getItem("shopkartCart")
-        ) || [];
+
+    /* =====================================================
+       LOAD CART
+    ===================================================== */
+
+    let cart = [];
+
+    try {
+
+        cart =
+            JSON.parse(
+                localStorage.getItem(
+                    "shopkartCart"
+                )
+            ) || [];
+
+    } catch {
+
+        cart = [];
+
+    }
+
+
+    /* =====================================================
+       CART DATA NORMALIZATION
+       Makes old cart data compatible
+    ===================================================== */
+
+    cart = cart
+        .map(item => {
+
+            const product =
+                products.find(
+                    product =>
+                        product.id ===
+                        Number(item.id)
+                );
+
+            if (!product) {
+                return null;
+            }
+
+            return {
+
+                id: product.id,
+
+                category: product.category,
+
+                name: product.name,
+
+                price: product.price,
+
+                mrp: product.mrp,
+
+                rating: product.rating,
+
+                reviews: product.reviews,
+
+                delivery: product.delivery,
+
+                image: product.image,
+
+                quantity:
+                    Math.max(
+                        1,
+                        Number(
+                            item.quantity || 1
+                        )
+                    )
+
+            };
+
+        })
+        .filter(Boolean);
 
 
     /* =====================================================
@@ -520,13 +590,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showToast(message) {
 
-        toastMessage.textContent = message;
+        if (!toast || !toastMessage) {
+            return;
+        }
+
+        toastMessage.textContent =
+            message;
 
         toast.classList.add("show");
 
         setTimeout(() => {
 
-            toast.classList.remove("show");
+            toast.classList.remove(
+                "show"
+            );
 
         }, 1800);
 
@@ -542,53 +619,119 @@ document.addEventListener("DOMContentLoaded", () => {
         const count =
             cart.reduce(
                 (total, item) =>
-                    total + item.quantity,
+                    total +
+                    Number(
+                        item.quantity || 1
+                    ),
                 0
             );
 
-        cartCount.textContent = count;
 
-        mobileCartCount.textContent = count;
+        if (cartCount) {
+
+            cartCount.textContent =
+                count;
+
+        }
+
+
+        if (mobileCartCount) {
+
+            mobileCartCount.textContent =
+                count;
+
+        }
+
 
         localStorage.setItem(
             "shopkartCart",
             JSON.stringify(cart)
         );
 
+
+        localStorage.setItem(
+            "shopkartCartCount",
+            String(count)
+        );
+
     }
 
+
+    /* =====================================================
+       ADD TO CART
+    ===================================================== */
 
     function addToCart(id) {
 
         const product =
             products.find(
-                item => item.id === id
+                item =>
+                    item.id === id
             );
 
-        if (!product) return;
+
+        if (!product) {
+            return;
+        }
 
 
         const existing =
             cart.find(
-                item => item.id === id
+                item =>
+                    item.id === id
             );
 
 
         if (existing) {
 
-            existing.quantity++;
+            existing.quantity =
+                Number(
+                    existing.quantity || 1
+                ) + 1;
 
         } else {
 
             cart.push({
-                id: id,
+
+                id: product.id,
+
+                category: product.category,
+
+                name: product.name,
+
+                price: product.price,
+
+                mrp: product.mrp,
+
+                rating: product.rating,
+
+                reviews: product.reviews,
+
+                delivery: product.delivery,
+
+                image: product.image,
+
                 quantity: 1
+
             });
 
         }
 
 
+        /* SAVE CART */
+
+        localStorage.setItem(
+            "shopkartCart",
+            JSON.stringify(cart)
+        );
+
+
+        /* UPDATE COUNT */
+
         updateCart();
+
+
+        /* TOAST */
 
         showToast(
             `${product.name} added to cart`
@@ -668,7 +811,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function fixProductImages() {
 
         document
-            .querySelectorAll(".product-image")
+            .querySelectorAll(
+                ".product-image"
+            )
             .forEach(img => {
 
                 img.addEventListener(
@@ -676,22 +821,32 @@ document.addEventListener("DOMContentLoaded", () => {
                     function () {
 
                         if (
-                            this.dataset.fixed === "true"
+                            this.dataset.fixed ===
+                            "true"
                         ) {
+
                             return;
+
                         }
 
-                        this.dataset.fixed = "true";
+
+                        this.dataset.fixed =
+                            "true";
+
 
                         const id =
                             Number(
                                 this.dataset.fallback
                             );
 
+
                         const product =
                             products.find(
-                                item => item.id === id
+                                item =>
+                                    item.id ===
+                                    id
                             );
+
 
                         if (product) {
 
@@ -722,6 +877,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 product.price,
                 product.mrp
             );
+
 
         return `
         <article class="product-card">
@@ -785,7 +941,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     class="add-cart-btn"
                     data-product-id="${product.id}">
 
-                    Add to Cart
+                    🛒 Add to Cart
 
                 </button>
 
@@ -826,33 +982,56 @@ document.addEventListener("DOMContentLoaded", () => {
         info = ""
     ) {
 
-        currentProducts = [...list];
+        currentProducts =
+            [...list];
 
-        homePage.style.display = "none";
 
-        productsSection.classList.add("active");
+        homePage.style.display =
+            "none";
 
-        productsTitle.textContent = title;
 
-        productsSubtitle.textContent = subtitle;
+        productsSection.classList.add(
+            "active"
+        );
 
-        searchInfo.textContent = info;
 
-        productsGrid.innerHTML = "";
+        productsTitle.textContent =
+            title;
 
-        noProducts.classList.remove("show");
+
+        productsSubtitle.textContent =
+            subtitle;
+
+
+        searchInfo.textContent =
+            info;
+
+
+        productsGrid.innerHTML =
+            "";
+
+
+        noProducts.classList.remove(
+            "show"
+        );
 
 
         if (!list.length) {
 
-            productsEnd.style.display = "none";
+            productsEnd.style.display =
+                "none";
 
-            noProducts.classList.add("show");
+
+            noProducts.classList.add(
+                "show"
+            );
+
 
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
             });
+
 
             return;
 
@@ -869,7 +1048,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-        productsEnd.style.display = "block";
+        productsEnd.style.display =
+            "block";
 
 
         fixProductImages();
@@ -889,20 +1069,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function goHome() {
 
-        homePage.style.display = "";
-
-        productsSection.classList.remove("active");
-
-        searchInfo.textContent = "";
-
-        currentCategory = "all";
+        homePage.style.display =
+            "";
 
 
-        searchInput.value = "";
+        productsSection.classList.remove(
+            "active"
+        );
 
-        mobileSearchInput.value = "";
 
-        clearSearch.classList.remove("show");
+        searchInfo.textContent =
+            "";
+
+
+        currentCategory =
+            "all";
+
+
+        searchInput.value =
+            "";
+
+
+        mobileSearchInput.value =
+            "";
+
+
+        clearSearch.classList.remove(
+            "show"
+        );
 
 
         document
@@ -913,7 +1107,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 button.classList.toggle(
                     "active",
-                    button.dataset.category === "all"
+                    button.dataset.category ===
+                    "all"
                 );
 
             });
@@ -933,7 +1128,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showCategory(category) {
 
-        currentCategory = category;
+        currentCategory =
+            category;
 
 
         document
@@ -944,7 +1140,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 button.classList.toggle(
                     "active",
-                    button.dataset.category === category
+                    button.dataset.category ===
+                    category
                 );
 
             });
@@ -967,7 +1164,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const filtered =
             products.filter(
                 product =>
-                    product.category === category
+                    product.category ===
+                    category
             );
 
 
@@ -1036,22 +1234,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const results =
-            products.filter(product =>
+            products.filter(
+                product =>
 
-                product.name
-                    .toLowerCase()
-                    .includes(query)
+                    product.name
+                        .toLowerCase()
+                        .includes(query)
 
-                ||
+                    ||
 
-                product.category
-                    .toLowerCase()
-                    .includes(query)
-
+                    product.category
+                        .toLowerCase()
+                        .includes(query)
             );
 
 
-        clearSearch.classList.add("show");
+        clearSearch.classList.add(
+            "show"
+        );
 
 
         showProducts(
@@ -1077,7 +1277,9 @@ document.addEventListener("DOMContentLoaded", () => {
             [...currentProducts];
 
 
-        switch (sortProducts.value) {
+        switch (
+            sortProducts.value
+        ) {
 
             case "low":
 
@@ -1129,7 +1331,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        productsGrid.innerHTML = "";
+        productsGrid.innerHTML =
+            "";
 
 
         sorted.forEach(product => {
@@ -1156,10 +1359,12 @@ document.addEventListener("DOMContentLoaded", () => {
             "bannerSlider"
         );
 
+
     const bannerDots =
         document.querySelectorAll(
             ".banner-dot"
         );
+
 
     const totalSlides =
         document.querySelectorAll(
@@ -1168,6 +1373,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function updateSlider() {
+
+        if (!bannerSlider) {
+            return;
+        }
+
 
         bannerSlider.style.transform =
             `translateX(-${currentSlide * 100}%)`;
@@ -1189,9 +1399,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function nextSlide() {
 
+        if (!totalSlides) {
+            return;
+        }
+
+
         currentSlide =
             (currentSlide + 1)
             % totalSlides;
+
 
         updateSlider();
 
@@ -1200,9 +1416,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function previousSlide() {
 
+        if (!totalSlides) {
+            return;
+        }
+
+
         currentSlide =
-            (currentSlide - 1 + totalSlides)
+            (currentSlide - 1 +
+                totalSlides)
             % totalSlides;
+
 
         updateSlider();
 
@@ -1211,7 +1434,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function startSlider() {
 
-        clearInterval(slideTimer);
+        if (!totalSlides) {
+            return;
+        }
+
+
+        clearInterval(
+            slideTimer
+        );
+
 
         slideTimer =
             setInterval(
@@ -1222,9 +1453,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    document
-        .getElementById("nextBanner")
-        .addEventListener(
+    const nextBanner =
+        document.getElementById(
+            "nextBanner"
+        );
+
+
+    const prevBanner =
+        document.getElementById(
+            "prevBanner"
+        );
+
+
+    if (nextBanner) {
+
+        nextBanner.addEventListener(
             "click",
             () => {
 
@@ -1235,10 +1478,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         );
 
+    }
 
-    document
-        .getElementById("prevBanner")
-        .addEventListener(
+
+    if (prevBanner) {
+
+        prevBanner.addEventListener(
             "click",
             () => {
 
@@ -1248,6 +1493,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
+
+    }
 
 
     bannerDots.forEach(dot => {
@@ -1260,6 +1507,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     Number(
                         dot.dataset.slide
                     );
+
 
                 updateSlider();
 
@@ -1296,53 +1544,57 @@ document.addEventListener("DOMContentLoaded", () => {
             .slice(0, 5);
 
 
-    bestDeals.forEach(product => {
+    if (bestDealsGrid) {
 
-        const discount =
-            getDiscount(
-                product.price,
-                product.mrp
+        bestDeals.forEach(product => {
+
+            const discount =
+                getDiscount(
+                    product.price,
+                    product.mrp
+                );
+
+
+            bestDealsGrid.insertAdjacentHTML(
+                "beforeend",
+
+                `
+                <div
+                    class="deal-card"
+                    data-product-id="${product.id}">
+
+                    <img
+                        src="${product.image}"
+                        alt="${product.name}"
+                        loading="lazy">
+
+                    <div class="deal-name">
+                        ${product.name}
+                    </div>
+
+                    <div>
+
+                        <span class="deal-price">
+                            ${formatPrice(product.price)}
+                        </span>
+
+                        <span class="deal-mrp">
+                            ${formatPrice(product.mrp)}
+                        </span>
+
+                        <span class="deal-discount">
+                            ${discount}% off
+                        </span>
+
+                    </div>
+
+                </div>
+                `
             );
 
+        });
 
-        bestDealsGrid.insertAdjacentHTML(
-            "beforeend",
-
-            `
-            <div
-                class="deal-card"
-                data-product-id="${product.id}">
-
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                    loading="lazy">
-
-                <div class="deal-name">
-                    ${product.name}
-                </div>
-
-                <div>
-
-                    <span class="deal-price">
-                        ${formatPrice(product.price)}
-                    </span>
-
-                    <span class="deal-mrp">
-                        ${formatPrice(product.mrp)}
-                    </span>
-
-                    <span class="deal-discount">
-                        ${discount}% off
-                    </span>
-
-                </div>
-
-            </div>
-            `
-        );
-
-    });
+    }
 
 
     /* =====================================================
@@ -1361,10 +1613,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     event.preventDefault();
 
+
                     const category =
                         button.dataset.category;
 
-                    showCategory(category);
+
+                    showCategory(
+                        category
+                    );
 
                 }
             );
@@ -1376,38 +1632,67 @@ document.addEventListener("DOMContentLoaded", () => {
        HOME BUTTONS
     ===================================================== */
 
-    document
-        .getElementById("homeBox")
-        .addEventListener(
+    const homeBox =
+        document.getElementById(
+            "homeBox"
+        );
+
+
+    if (homeBox) {
+
+        homeBox.addEventListener(
             "click",
             goHome
         );
 
+    }
 
-    document
-        .getElementById("mobileFlipBtn")
-        .addEventListener(
+
+    const mobileFlipBtn =
+        document.getElementById(
+            "mobileFlipBtn"
+        );
+
+
+    if (mobileFlipBtn) {
+
+        mobileFlipBtn.addEventListener(
             "click",
             goHome
         );
 
+    }
 
-    document
-        .getElementById("mobileHomeBtn")
-        .addEventListener(
+
+    const mobileHomeBtn =
+        document.getElementById(
+            "mobileHomeBtn"
+        );
+
+
+    if (mobileHomeBtn) {
+
+        mobileHomeBtn.addEventListener(
             "click",
             goHome
         );
+
+    }
 
 
     /* =====================================================
        VIEW ALL
-       FIXED
     ===================================================== */
 
-    document
-        .getElementById("viewAllBtn")
-        .addEventListener(
+    const viewAllBtn =
+        document.getElementById(
+            "viewAllBtn"
+        );
+
+
+    if (viewAllBtn) {
+
+        viewAllBtn.addEventListener(
             "click",
             () => {
 
@@ -1421,10 +1706,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         );
 
+    }
 
-    document
-        .getElementById("showAllBtn")
-        .addEventListener(
+
+    const showAllBtn =
+        document.getElementById(
+            "showAllBtn"
+        );
+
+
+    if (showAllBtn) {
+
+        showAllBtn.addEventListener(
             "click",
             () => {
 
@@ -1437,6 +1730,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
+
+    }
 
 
     /* =====================================================
@@ -1449,7 +1744,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             clearSearch.classList.toggle(
                 "show",
-                searchInput.value.length > 0
+                searchInput.value.length >
+                0
             );
 
         }
@@ -1476,11 +1772,14 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         () => {
 
-            searchInput.value = "";
+            searchInput.value =
+                "";
+
 
             clearSearch.classList.remove(
                 "show"
             );
+
 
             goHome();
 
@@ -1488,9 +1787,15 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    document
-        .getElementById("mobileSearchBtn")
-        .addEventListener(
+    const mobileSearchBtn =
+        document.getElementById(
+            "mobileSearchBtn"
+        );
+
+
+    if (mobileSearchBtn) {
+
+        mobileSearchBtn.addEventListener(
             "click",
             () => {
 
@@ -1500,6 +1805,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
+
+    }
 
 
     mobileSearchInput.addEventListener(
@@ -1536,6 +1843,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         event => {
 
+            /* ================================
+               ADD TO CART
+            ================================= */
+
             const cartButton =
                 event.target.closest(
                     ".add-cart-btn"
@@ -1544,16 +1855,99 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (cartButton) {
 
-                addToCart(
+                const productId =
                     Number(
-                        cartButton.dataset.productId
-                    )
+                        cartButton.dataset
+                            .productId
+                    );
+
+
+                const product =
+                    products.find(
+                        item =>
+                            item.id ===
+                            productId
+                    );
+
+
+                if (!product) {
+                    return;
+                }
+
+
+                /* ADD PRODUCT */
+
+                addToCart(
+                    productId
                 );
+
+
+                /* BUTTON ANIMATION */
+
+                cartButton.animate(
+                    [
+                        {
+                            transform:
+                                "scale(1)"
+                        },
+
+                        {
+                            transform:
+                                "scale(.88)"
+                        },
+
+                        {
+                            transform:
+                                "scale(1.08)"
+                        },
+
+                        {
+                            transform:
+                                "scale(1)"
+                        }
+                    ],
+                    {
+                        duration: 450,
+                        easing: "ease-out"
+                    }
+                );
+
+
+                /* BUTTON SUCCESS */
+
+                const oldText =
+                    cartButton.textContent;
+
+
+                cartButton.textContent =
+                    "✓ Added";
+
+
+                cartButton.style.background =
+                    "#388e3c";
+
+
+                setTimeout(() => {
+
+                    cartButton.textContent =
+                        oldText ||
+                        "🛒 Add to Cart";
+
+
+                    cartButton.style.background =
+                        "";
+
+                }, 1200);
+
 
                 return;
 
             }
 
+
+            /* ================================
+               BUY NOW
+            ================================= */
 
             const buyButton =
                 event.target.closest(
@@ -1568,7 +1962,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         item =>
                             item.id ===
                             Number(
-                                buyButton.dataset.productId
+                                buyButton.dataset
+                                    .productId
                             )
                     );
 
@@ -1578,6 +1973,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     addToCart(
                         product.id
                     );
+
 
                     showToast(
                         "Product added — opening cart"
@@ -1596,10 +1992,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
+
                 return;
 
             }
 
+
+            /* ================================
+               VIEW DETAILS
+            ================================= */
 
             const detailButton =
                 event.target.closest(
@@ -1614,7 +2015,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         item =>
                             item.id ===
                             Number(
-                                detailButton.dataset.productId
+                                detailButton.dataset
+                                    .productId
                             )
                     );
 
@@ -1627,10 +2029,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
+
                 return;
 
             }
 
+
+            /* ================================
+               BEST DEAL CARD
+            ================================= */
 
             const dealCard =
                 event.target.closest(
@@ -1645,7 +2052,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         item =>
                             item.id ===
                             Number(
-                                dealCard.dataset.productId
+                                dealCard.dataset
+                                    .productId
                             )
                     );
 
@@ -1699,6 +2107,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const lat =
                     position.coords.latitude;
 
+
                 const lon =
                     position.coords.longitude;
 
@@ -1707,25 +2116,46 @@ document.addEventListener("DOMContentLoaded", () => {
                     `Location detected (${lat.toFixed(2)}, ${lon.toFixed(2)})`;
 
 
-                document
-                    .getElementById(
+                const currentPincode =
+                    document.getElementById(
                         "currentPincode"
-                    )
-                    .textContent = text;
+                    );
 
 
-                document
-                    .getElementById(
+                const deliveryLocation =
+                    document.getElementById(
                         "deliveryLocation"
-                    )
-                    .textContent = text;
+                    );
 
 
-                document
-                    .getElementById(
+                const mobilePincode =
+                    document.getElementById(
                         "mobilePincode"
-                    )
-                    .textContent = text;
+                    );
+
+
+                if (currentPincode) {
+
+                    currentPincode.textContent =
+                        text;
+
+                }
+
+
+                if (deliveryLocation) {
+
+                    deliveryLocation.textContent =
+                        text;
+
+                }
+
+
+                if (mobilePincode) {
+
+                    mobilePincode.textContent =
+                        text;
+
+                }
 
 
                 localStorage.setItem(
@@ -1756,6 +2186,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 timeout: 10000,
 
                 maximumAge: 300000
+
             }
 
         );
@@ -1763,63 +2194,103 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    document
-        .getElementById("locationBtn")
-        .addEventListener(
+    const locationBtn =
+        document.getElementById(
+            "locationBtn"
+        );
+
+
+    if (locationBtn) {
+
+        locationBtn.addEventListener(
             "click",
             selectLocation
         );
 
+    }
 
-    document
-        .getElementById("mobileLocation")
-        .addEventListener(
+
+    const mobileLocation =
+        document.getElementById(
+            "mobileLocation"
+        );
+
+
+    if (mobileLocation) {
+
+        mobileLocation.addEventListener(
             "click",
             selectLocation
         );
 
+    }
 
-    document
-        .getElementById("changeLocationBtn")
-        .addEventListener(
+
+    const changeLocationBtn =
+        document.getElementById(
+            "changeLocationBtn"
+        );
+
+
+    if (changeLocationBtn) {
+
+        changeLocationBtn.addEventListener(
             "click",
             selectLocation
         );
+
+    }
 
 
     /* =====================================================
        MOBILE CATEGORY NAV
     ===================================================== */
 
-    document
-        .getElementById(
+    const mobileCategoriesBtn =
+        document.getElementById(
             "mobileCategoriesBtn"
-        )
-        .addEventListener(
+        );
+
+
+    if (mobileCategoriesBtn) {
+
+        mobileCategoriesBtn.addEventListener(
             "click",
             () => {
 
-                document
-                    .querySelector(
+                const categories =
+                    document.querySelector(
                         ".mobile-categories"
-                    )
-                    .scrollIntoView({
+                    );
+
+
+                if (categories) {
+
+                    categories.scrollIntoView({
                         behavior: "smooth"
                     });
 
+                }
+
             }
         );
+
+    }
 
 
     /* =====================================================
        MOBILE ACCOUNT
     ===================================================== */
 
-    document
-        .getElementById(
+    const mobileAccountBtn =
+        document.getElementById(
             "mobileAccountBtn"
-        )
-        .addEventListener(
+        );
+
+
+    if (mobileAccountBtn) {
+
+        mobileAccountBtn.addEventListener(
             "click",
             () => {
 
@@ -1828,6 +2299,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
+
+    }
 
 
     /* =====================================================
@@ -1842,28 +2315,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (savedLocation) {
 
-        document
-            .getElementById(
+        const currentPincode =
+            document.getElementById(
                 "currentPincode"
-            )
-            .textContent =
-            savedLocation;
+            );
 
 
-        document
-            .getElementById(
+        const deliveryLocation =
+            document.getElementById(
                 "deliveryLocation"
-            )
-            .textContent =
-            savedLocation;
+            );
 
 
-        document
-            .getElementById(
+        const mobilePincode =
+            document.getElementById(
                 "mobilePincode"
-            )
-            .textContent =
-            savedLocation;
+            );
+
+
+        if (currentPincode) {
+
+            currentPincode.textContent =
+                savedLocation;
+
+        }
+
+
+        if (deliveryLocation) {
+
+            deliveryLocation.textContent =
+                savedLocation;
+
+        }
+
+
+        if (mobilePincode) {
+
+            mobilePincode.textContent =
+                savedLocation;
+
+        }
 
     }
 

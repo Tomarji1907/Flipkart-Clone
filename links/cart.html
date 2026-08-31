@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,102 +7,689 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Cart - Flipkart</title>
+    <!-- FAVICON -->
+    <link
+        rel="icon"
+        type="image/webp"
+        href="../img/f.webp"
+    >
+
+    <title>My Cart - Flipkart Clone</title>
 
     <style>
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-
-            min-height: 100vh;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
             font-family:
                 Arial,
                 Helvetica,
                 sans-serif;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #2874f0,
-                    #0d47a1
-                );
-
+            background: #f1f3f6;
+            color: #212121;
         }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .header {
+
+            background: #2874f0;
+            color: white;
+
+            height: 64px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 6%;
+
+            gap: 25px;
+        }
+
+
+        .back-btn {
+
+            border: none;
+            background: transparent;
+
+            color: white;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            padding: 5px 10px;
+        }
+
+
+        .header-title {
+
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+
+        .cart-number {
+
+            margin-left: auto;
+
+            background: white;
+            color: #2874f0;
+
+            min-width: 30px;
+            height: 30px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        .cart-page {
+
+            max-width: 1200px;
+
+            margin: 25px auto;
+
+            padding: 0 15px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 350px;
+
+            gap: 20px;
+        }
+
+
+        /* =========================
+           CART ITEMS
+        ========================== */
 
         .cart-box {
 
-            width: 90%;
+            background: white;
 
-            max-width: 500px;
-
-            padding: 40px;
-
-            background: #ffffff;
-
-            border-radius: 12px;
-
-            text-align: center;
+            border-radius: 3px;
 
             box-shadow:
-                0 15px 40px
-                rgba(0,0,0,0.25);
+                0 1px 3px rgba(0,0,0,.08);
 
+            overflow: hidden;
         }
 
-        .cart-icon {
 
-            font-size: 55px;
+        .cart-heading {
 
-            margin-bottom: 15px;
+            padding: 20px;
 
+            border-bottom:
+                1px solid #eee;
+
+            font-size: 19px;
+
+            font-weight: 600;
         }
 
-        .cart-box h1 {
 
-            color: #2874f0;
+        .cart-item {
 
-            margin-bottom: 12px;
+            display: grid;
 
+            grid-template-columns:
+                150px 1fr;
+
+            gap: 20px;
+
+            padding: 22px;
+
+            border-bottom:
+                1px solid #eee;
+
+            position: relative;
         }
 
-        .cart-box p {
 
-            color: #555;
+        .cart-image {
 
-            margin-bottom: 25px;
+            width: 150px;
+            height: 150px;
 
+            object-fit: contain;
+
+            border-radius: 4px;
         }
 
-        .home-link {
+
+        .item-name {
+
+            font-size: 18px;
+
+            font-weight: 500;
+
+            margin-bottom: 10px;
+
+            padding-right: 35px;
+        }
+
+
+        .item-rating {
 
             display: inline-block;
 
-            padding:
-                12px 22px;
+            background: #388e3c;
+
+            color: white;
+
+            font-size: 12px;
+
+            padding: 4px 7px;
+
+            border-radius: 3px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .item-price {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .price {
+
+            font-size: 21px;
+
+            font-weight: 600;
+        }
+
+
+        .mrp {
+
+            text-decoration: line-through;
+
+            color: #878787;
+        }
+
+
+        .discount {
+
+            color: #388e3c;
+
+            font-weight: 600;
+        }
+
+
+        .delivery {
+
+            color: #555;
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           QUANTITY
+        ========================== */
+
+        .quantity-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        .qty-btn {
+
+            width: 32px;
+            height: 32px;
+
+            border: 1px solid #c2c2c2;
+
+            background: white;
+
+            border-radius: 50%;
+
+            cursor: pointer;
+
+            font-size: 18px;
+        }
+
+
+        .qty-value {
+
+            min-width: 35px;
+
+            height: 32px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            border: 1px solid #ddd;
+
+            border-radius: 3px;
+        }
+
+
+        /* =========================
+           ACTION BUTTONS
+        ========================== */
+
+        .item-actions {
+
+            display: flex;
+
+            gap: 12px;
+
+            margin-top: 18px;
+        }
+
+
+        .remove-btn {
+
+            border: 1px solid #ddd;
+
+            background: white;
+
+            padding: 10px 18px;
+
+            border-radius: 3px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+
+        .remove-btn:hover {
+
+            color: #d32f2f;
+
+            border-color: #d32f2f;
+        }
+
+
+        .buy-btn {
+
+            border: none;
+
+            background: #fb641b;
+
+            color: white;
+
+            padding: 10px 24px;
+
+            border-radius: 3px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+
+        .buy-btn:hover {
+
+            background: #e85a17;
+        }
+
+
+        /* =========================
+           SUMMARY
+        ========================== */
+
+        .summary {
+
+            background: white;
+
+            height: fit-content;
+
+            border-radius: 3px;
+
+            box-shadow:
+                0 1px 3px rgba(0,0,0,.08);
+
+            position: sticky;
+
+            top: 20px;
+        }
+
+
+        .summary-title {
+
+            padding: 18px;
+
+            color: #878787;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            border-bottom:
+                1px solid #eee;
+        }
+
+
+        .summary-content {
+
+            padding: 20px;
+        }
+
+
+        .summary-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 18px;
+
+            font-size: 15px;
+        }
+
+
+        .summary-total {
+
+            border-top:
+                1px dashed #ddd;
+
+            padding-top: 18px;
+
+            font-size: 18px;
+
+            font-weight: 600;
+        }
+
+
+        .checkout-btn {
+
+            width: 100%;
+
+            border: none;
+
+            background: #fb641b;
+
+            color: white;
+
+            padding: 15px;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            border-radius: 3px;
+
+            margin-top: 10px;
+        }
+
+
+        /* =========================
+           EMPTY CART
+        ========================== */
+
+        .empty-cart {
+
+            background: white;
+
+            min-height: 420px;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            text-align: center;
+
+            padding: 30px;
+        }
+
+
+        .empty-icon {
+
+            font-size: 70px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .empty-cart h2 {
+
+            margin-bottom: 10px;
+        }
+
+
+        .empty-cart p {
+
+            color: #777;
+
+            margin-bottom: 20px;
+        }
+
+
+        .continue-btn {
+
+            border: none;
 
             background: #2874f0;
 
-            color: #ffffff;
+            color: white;
 
-            border-radius: 6px;
+            padding: 13px 28px;
 
-            text-decoration: none;
+            border-radius: 3px;
 
-            font-weight: bold;
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           REMOVE BUTTON TOP
+        ========================== */
+
+        .delete-top {
+
+            position: absolute;
+
+            right: 20px;
+            top: 20px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #777;
+
+            font-size: 20px;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           TOAST
+        ========================== */
+
+        .toast {
+
+            position: fixed;
+
+            bottom: 25px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%)
+                translateY(100px);
+
+            background: #323232;
+
+            color: white;
+
+            padding: 13px 22px;
+
+            border-radius: 4px;
+
+            opacity: 0;
+
+            transition: .3s;
+
+            z-index: 9999;
+        }
+
+
+        .toast.show {
+
+            opacity: 1;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            .header {
+
+                height: 58px;
+
+                padding: 0 12px;
+
+            }
+
+
+            .header-title {
+
+                font-size: 18px;
+
+            }
+
+
+            .cart-page {
+
+                display: block;
+
+                margin: 10px auto;
+
+                padding: 0 8px;
+
+            }
+
+
+            .summary {
+
+                position: static;
+
+                margin-top: 12px;
+
+            }
+
+
+            .cart-item {
+
+                grid-template-columns:
+                    105px 1fr;
+
+                gap: 13px;
+
+                padding: 15px;
+
+            }
+
+
+            .cart-image {
+
+                width: 105px;
+                height: 105px;
+            }
+
+
+            .item-name {
+
+                font-size: 15px;
+
+                line-height: 1.35;
+            }
+
+
+            .price {
+
+                font-size: 17px;
+            }
+
+
+            .item-price {
+
+                flex-wrap: wrap;
+
+                gap: 6px;
+            }
+
+
+            .item-actions {
+
+                flex-wrap: wrap;
+            }
+
+
+            .remove-btn,
+            .buy-btn {
+
+                padding: 9px 13px;
+
+                font-size: 13px;
+            }
+
+
+            .delete-top {
+
+                right: 10px;
+
+                top: 10px;
+            }
 
         }
 
@@ -113,31 +700,717 @@
 
 <body>
 
-    <div class="cart-box">
 
-        <div class="cart-icon">
-            🛒
-        </div>
+<header class="header">
 
-        <h1>
-            Your Cart
-        </h1>
+    <button
+        class="back-btn"
+        onclick="goBack()"
+        aria-label="Back"
+    >
+        ←
+    </button>
 
-        <p>
-            Your shopping cart is currently empty.
-        </p>
-
-
-        <a
-            href="../index.html"
-            class="home-link">
-
-            ← Continue Shopping
-
-        </a>
-
+    <div class="header-title">
+        My Cart
     </div>
 
-</body>
+    <div
+        id="headerCartCount"
+        class="cart-number"
+    >
+        0
+    </div>
 
+</header>
+
+
+<main class="cart-page">
+
+
+    <section class="cart-box">
+
+        <div class="cart-heading">
+            My Cart
+            <span id="itemCountText"></span>
+        </div>
+
+
+        <div id="cartItems"></div>
+
+
+        <div
+            id="emptyCart"
+            class="empty-cart"
+        >
+
+            <div class="empty-icon">
+                🛒
+            </div>
+
+            <h2>
+                Your cart is empty
+            </h2>
+
+            <p>
+                Add products to your cart to see them here.
+            </p>
+
+            <button
+                class="continue-btn"
+                onclick="continueShopping()"
+            >
+                Continue Shopping
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <aside
+        class="summary"
+        id="summary"
+    >
+
+        <div class="summary-title">
+            PRICE DETAILS
+        </div>
+
+
+        <div class="summary-content">
+
+            <div class="summary-row">
+
+                <span>
+                    Price
+                </span>
+
+                <span id="subtotal">
+                    ₹0
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Discount
+                </span>
+
+                <span
+                    id="discountAmount"
+                    style="color:#388e3c"
+                >
+                    − ₹0
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Delivery
+                </span>
+
+                <span
+                    style="color:#388e3c"
+                >
+                    FREE
+                </span>
+
+            </div>
+
+
+            <div class="summary-row summary-total">
+
+                <span>
+                    Total Amount
+                </span>
+
+                <span id="totalAmount">
+                    ₹0
+                </span>
+
+            </div>
+
+
+            <button
+                class="checkout-btn"
+                id="checkoutBtn"
+            >
+                💳 Buy Now
+            </button>
+
+        </div>
+
+    </aside>
+
+
+</main>
+
+
+<div
+    id="toast"
+    class="toast"
+>
+    Product removed
+</div>
+
+
+<script>
+
+
+/* =====================================
+   HELPERS
+====================================== */
+
+function money(value) {
+
+    return new Intl.NumberFormat(
+        "en-IN"
+    ).format(value);
+
+}
+
+
+/* =====================================
+   CART DATA
+====================================== */
+
+function getCart() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "shopkartCart"
+            )
+        ) || [];
+
+    } catch {
+
+        return [];
+
+    }
+
+}
+
+
+function saveCart(cart) {
+
+    localStorage.setItem(
+        "shopkartCart",
+        JSON.stringify(cart)
+    );
+
+
+    const count =
+        cart.reduce(
+            (total, item) =>
+                total +
+                Number(item.quantity || 1),
+            0
+        );
+
+
+    localStorage.setItem(
+        "shopkartCartCount",
+        count
+    );
+
+}
+
+
+/* =====================================
+   RENDER CART
+====================================== */
+
+function renderCart() {
+
+    const cart = getCart();
+
+    const container =
+        document.getElementById(
+            "cartItems"
+        );
+
+    const empty =
+        document.getElementById(
+            "emptyCart"
+        );
+
+    const summary =
+        document.getElementById(
+            "summary"
+        );
+
+
+    const headerCount =
+        document.getElementById(
+            "headerCartCount"
+        );
+
+    const itemCountText =
+        document.getElementById(
+            "itemCountText"
+        );
+
+
+    const totalItems =
+        cart.reduce(
+            (total, item) =>
+                total +
+                Number(item.quantity || 1),
+            0
+        );
+
+
+    headerCount.textContent =
+        totalItems;
+
+
+    itemCountText.textContent =
+        totalItems
+            ? ` (${totalItems})`
+            : "";
+
+
+    if (cart.length === 0) {
+
+        container.innerHTML = "";
+
+        empty.style.display = "flex";
+
+        summary.style.display = "none";
+
+        return;
+
+    }
+
+
+    empty.style.display = "none";
+
+    summary.style.display = "block";
+
+
+    container.innerHTML =
+        cart.map(
+            item => {
+
+                const quantity =
+                    Number(
+                        item.quantity || 1
+                    );
+
+
+                const discount =
+                    Math.round(
+                        (
+                            (
+                                item.mrp -
+                                item.price
+                            ) /
+                            item.mrp
+                        ) * 100
+                    );
+
+
+                return `
+
+                <article
+                    class="cart-item"
+                >
+
+                    <img
+                        src="${item.image}"
+                        alt="${escapeHtml(item.name)}"
+                        class="cart-image"
+                        onerror="this.style.display='none'"
+                    >
+
+
+                    <div>
+
+                        <button
+                            class="delete-top"
+                            onclick="removeItem(${item.id})"
+                            title="Remove"
+                        >
+                            ×
+                        </button>
+
+
+                        <div class="item-name">
+                            ${escapeHtml(item.name)}
+                        </div>
+
+
+                        <span class="item-rating">
+                            ${item.rating} ★
+                        </span>
+
+
+                        <div class="item-price">
+
+                            <span class="price">
+                                ₹${money(item.price)}
+                            </span>
+
+                            <span class="mrp">
+                                ₹${money(item.mrp)}
+                            </span>
+
+                            <span class="discount">
+                                ${discount}% off
+                            </span>
+
+                        </div>
+
+
+                        <div class="delivery">
+                            ${escapeHtml(item.delivery)}
+                        </div>
+
+
+                        <div class="quantity-row">
+
+                            <button
+                                class="qty-btn"
+                                onclick="changeQuantity(${item.id}, -1)"
+                            >
+                                −
+                            </button>
+
+                            <span
+                                class="qty-value"
+                            >
+                                ${quantity}
+                            </span>
+
+                            <button
+                                class="qty-btn"
+                                onclick="changeQuantity(${item.id}, 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+
+                        <div class="item-actions">
+
+                            <button
+                                class="remove-btn"
+                                onclick="removeItem(${item.id})"
+                            >
+                                ❌ Remove
+                            </button>
+
+                            <button
+                                class="buy-btn"
+                                onclick="buyItem(${item.id})"
+                            >
+                                ⚡ Buy Now
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                `;
+
+            }
+        ).join("");
+
+
+    updateSummary(cart);
+
+}
+
+
+/* =====================================
+   SUMMARY
+====================================== */
+
+function updateSummary(cart) {
+
+    let subtotal = 0;
+
+    let mrpTotal = 0;
+
+
+    cart.forEach(item => {
+
+        const quantity =
+            Number(
+                item.quantity || 1
+            );
+
+
+        subtotal +=
+            item.price * quantity;
+
+
+        mrpTotal +=
+            item.mrp * quantity;
+
+    });
+
+
+    const discount =
+        mrpTotal - subtotal;
+
+
+    document.getElementById(
+        "subtotal"
+    ).textContent =
+        `₹${money(mrpTotal)}`;
+
+
+    document.getElementById(
+        "discountAmount"
+    ).textContent =
+        `− ₹${money(discount)}`;
+
+
+    document.getElementById(
+        "totalAmount"
+    ).textContent =
+        `₹${money(subtotal)}`;
+
+}
+
+
+/* =====================================
+   QUANTITY
+====================================== */
+
+function changeQuantity(id, amount) {
+
+    const cart = getCart();
+
+
+    const item =
+        cart.find(
+            product =>
+                product.id === id
+        );
+
+
+    if (!item) return;
+
+
+    item.quantity =
+        Number(item.quantity || 1)
+        + amount;
+
+
+    if (item.quantity <= 0) {
+
+        const index =
+            cart.findIndex(
+                product =>
+                    product.id === id
+            );
+
+        cart.splice(index, 1);
+
+    }
+
+
+    saveCart(cart);
+
+    renderCart();
+
+}
+
+
+/* =====================================
+   REMOVE
+====================================== */
+
+function removeItem(id) {
+
+    let cart = getCart();
+
+
+    cart =
+        cart.filter(
+            item =>
+                item.id !== id
+        );
+
+
+    saveCart(cart);
+
+    renderCart();
+
+    showToast(
+        "Product removed from cart"
+    );
+
+}
+
+
+/* =====================================
+   BUY SINGLE ITEM
+====================================== */
+
+function buyItem(id) {
+
+    const cart = getCart();
+
+
+    const item =
+        cart.find(
+            product =>
+                product.id === id
+        );
+
+
+    if (!item) return;
+
+
+    showToast(
+        `Buy Now: ₹${money(item.price)}`
+    );
+
+}
+
+
+/* =====================================
+   BUY ALL
+====================================== */
+
+document
+    .getElementById("checkoutBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            const cart = getCart();
+
+
+            if (!cart.length) {
+
+                showToast(
+                    "Your cart is empty"
+                );
+
+                return;
+
+            }
+
+
+            const total =
+                cart.reduce(
+                    (sum, item) =>
+                        sum +
+                        (
+                            item.price *
+                            Number(
+                                item.quantity || 1
+                            )
+                        ),
+                    0
+                );
+
+
+            showToast(
+                `Buy Now: ₹${money(total)}`
+            );
+
+        }
+    );
+
+
+/* =====================================
+   NAVIGATION
+====================================== */
+
+function goBack() {
+
+    if (history.length > 1) {
+
+        history.back();
+
+    } else {
+
+        window.location.href =
+            "../index.html";
+
+    }
+
+}
+
+
+function continueShopping() {
+
+    window.location.href =
+        "../index.html";
+
+}
+
+
+/* =====================================
+   TOAST
+====================================== */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    }, 1800);
+
+}
+
+
+/* =====================================
+   SAFE HTML
+====================================== */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================
+   START
+====================================== */
+
+renderCart();
+
+</script>
+
+
+</body>
 </html>
